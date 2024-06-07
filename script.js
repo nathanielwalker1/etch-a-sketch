@@ -1,73 +1,64 @@
-// Select container
-// Neede to manipulate HTML/CSS elements
+// Select container to manipulate
 const container = document.querySelector(".container");
 
-// Select button element
-const button = document.querySelector("button");
+// Select button to manipulate
+const button = document.querySelector(".button");
 
-// Ask for a specific grid size
+// Prompt user for their specified grid size
 
-let size = parseInt(prompt("Enter grid size - a number between 1 and 100"));
-// Rule to make sure it is between 1 & 100
-if (isNaN(size || size < 1 || size > 100)) {
-  alert("Please enter a valid number between 1 and 100");
-  size = 16; // sets default size to 16
-}
+// Create Grid function using user's specified grid size
 
-function createGrid(gridSize) {
-  // clear existing grid
-  container.innerHTML = "";
-
-  //   ensure squares fit perfectly within the default 960px wide container
-  const squareSize = 960 / gridSize;
-
+function createGrid(size) {
   if (container) {
-    console.log("Container found");
+    // Empty grid
+    container.innerHTML = "";
+    console.log("container found");
 
-    //   For loop
+    // Loop to create a grid
+
     for (let i = 0; i < size * size; i++) {
-      // Create a square using a div
+      // Create a square in each loop
       const square = document.createElement("div");
 
-      // Add it to CSS
+      // Add newly created square into CSS
       square.classList.add("square");
 
-      //   Ensure squares are same width and height
-      square.style.width = `${squareSize}px`;
-      square.style.height = `${squareSize}px`;
+      // Make sure the sizes are accurate
+      square.style.width = `${960 / size}px`;
+      square.style.height = `${960 / size}px`;
 
-      // Append it to container
+      // Append to container
       container.appendChild(square);
     }
 
-    // Select the newly created square divs
-    // For Each loop to add an event listener for a 'hover'
+    // ForEach to create hover (mouseover) colour effect
+
+    // Select all the squares that were created
     const squares = document.querySelectorAll(".square");
+
+    // ForEach
     squares.forEach((square) => {
-      square.addEventListener("mouseover", (event) => {
-        event.target.style.backgroundColor = "black";
+      square.addEventListener("mouseover", () => {
+        square.style.backgroundColor = "black";
       });
     });
   } else {
-    console.log("Container not found");
+    console.log("container not found");
   }
 }
 
-createGrid(size);
+// Call the function
+createGrid(20);
 
-button.addEventListener("click", function () {
-  let newSize = parseInt(prompt("Enter a number between 1 and 100."));
+// Make grid size editable with a button and event listener
 
-  if (isNaN(newSize) || newSize < 1 || newSize > 100) {
-    alert("Please enter a number between 1 and 100");
-    newSize = 16;
+button.addEventListener("click", () => {
+  let newSize = parseInt(prompt("Enter a number between 1 and 100"));
+  if (newSize < 1 || newSize > 100 || isNaN(newSize)) {
+    alert("Not accepted. Enter a number between 1 and 100.");
+    newSize = 20;
   } else {
     size = newSize;
-    createGrid(newSize);
   }
+  createGrid(newSize);
 });
-
-/* Things to do:
-- Make your button look better
-- Randomize the colours after a hover (look at extra credit section)
-*/
