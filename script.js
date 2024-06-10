@@ -4,6 +4,18 @@ const container = document.querySelector(".container");
 // Select button to manipulate
 const button = document.querySelector(".button");
 
+// Colours for random colour generation
+const colors = [
+  "red",
+  "blue",
+  "green",
+  "teal",
+  "rosybrown",
+  "tan",
+  "plum",
+  "saddlebrown",
+];
+
 // Prompt user for their specified grid size
 
 // Create Grid function using user's specified grid size
@@ -39,7 +51,9 @@ function createGrid(size) {
     // ForEach
     squares.forEach((square) => {
       square.addEventListener("mouseover", () => {
-        square.style.backgroundColor = "black";
+        square.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+        // square.style.opacity -= 0.1;
       });
     });
   } else {
